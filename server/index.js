@@ -16,6 +16,12 @@ const port = process.env.PORT || 5000
 // initialized express
 const app = express()
 
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.connection.once('open', ()=>{
+	console.log("Now connected to Local MongoDB Server")
+})
+
+
 // cors enable
 app.use(cors())
 
