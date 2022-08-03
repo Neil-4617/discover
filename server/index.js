@@ -26,7 +26,7 @@ mongoose.connection.once('open', ()=>{
 app.use(cors())
 
 // graphql
-app.use('/graphql', graphqlHTTP({ schema, graphiql: true }))
+app.use('/graphql', graphqlHTTP({ schema, graphiql: process.env.NODE_ENV === 'development' }))
 
 // listen
 app.listen(port, console.log(`Server running on port ${port}`))

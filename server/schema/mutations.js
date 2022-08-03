@@ -15,6 +15,7 @@ import { Post } from '../models/Post.js'
 export const Mutation = new GraphQLObjectType({
 	name: 'Mutation',
 	fields: {
+		// add user
 		addUser: {
 			type: UserType,
 			args: { 
@@ -31,6 +32,39 @@ export const Mutation = new GraphQLObjectType({
 				return user.save()
 			}
 		},
+		// delete user
+		deleteUser:{
+			type: UserType,
+			args: { id: { type: GraphQLNonNull(GraphQLID) } },
+			resolve(_, args){
+				return User.findByIdAndRemove(args.id)
+			}
+		},
+		// update user
+		updateUser: {
+			type: UserType,
+			args: {
+				id: { type: new GraphQLNonNull(GraphQLID) },
+				firstname: { type: new GraphQLNonNull(GraphQLString) },
+				lastname: { type: new GraphQLNonNull(GraphQLString) },
+				email: { type: new GraphQLNonNull(GraphQLString) },
+			},
+			resolve(_, args){
+				return User.findOneAndUpdate(
+					args.id,
+					{
+						$set:{
+							firstname: args.firstname,
+							lastname: args.lastname,
+							email: args.email,
+							updatedAt: new Date().toISOString()
+						},
+					},
+					{ new: true }
+				)
+			}
+		},
+		// add post
 		addPost: {
 			type: PostType,
 			args: { 
@@ -47,6 +81,34 @@ export const Mutation = new GraphQLObjectType({
 				return post.save()
 			}
 		},
-		
+		// delete post
+		deletePost:{
+			type: PostType,
+			args: { id: { type: GraphQLNonNull(GraphQLID) } },
+			resolve(_, args){
+				return Post.findByIdAndRemove(args.id)
+			}
+		},
+		updatePost:{
+			type: PostType,
+			args: {
+				id: { type: new GraphQLNonNull(GraphQLID) },
+				title: { type: new GraphQLNonNull(GraphQLString) },
+				text: { type: new GraphQLNonNull(GraphQLString) }
+			},
+			resolve(_, args) {
+				return Post.findOneAndUpdate(
+					args.id,
+					{
+						$set: {
+							title: args.title,
+							text: args.text,
+							updatedAt: new Date().toISOString()
+						}
+					},
+					{ new: true }
+				)
+			}
+		},
 	}
 })
