@@ -3,24 +3,23 @@ import { useQuery } from '@apollo/client'
 import Box from '@mui/material/Box'
 
 // get users query
-import { GET_ALL_POST } from '../graphql/queries.js'
+import { GET_USERS } from '../graphql/queries.js'
 
-import PostList from './PostList'
 import ErrorLoading from './ErrorLoading'
 import LoadingData from './LoadingData'
+import UsersList from './UsersList'
 
+const Users = () => {
+	const { loading, error, data } = useQuery(GET_USERS)
+		
+	
 
-const Posts = () => {
-	const { loading, error, data } = useQuery(GET_ALL_POST)
-
-	if(loading) return <LoadingData/>
-
-	if(error) return <ErrorLoading/>
-			
+	if(loading) return <LoadingData />
+	if(error) return <ErrorLoading />
 
 	return (
 		<>{ !loading && !error && (
-			<Box
+			<Box 
 				sx={{
 					minHeight: '80vh',
 					display: 'flex',
@@ -30,11 +29,10 @@ const Posts = () => {
 					gap: 2,
 					padding: '2rem',
 					mx: '2rem'
-				}}
-			>
-				{data.posts.map(post =>(
-					<PostList key={post.id} post={post} />
-						
+				}}>
+				{data.users.map(user =>(
+					<UsersList key={user.id} user={user}/>
+					
 				))}
 			</Box>
 			)
@@ -42,4 +40,4 @@ const Posts = () => {
 	)
 }
 
-export default Posts
+export default Users

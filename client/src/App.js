@@ -1,7 +1,11 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
-import Clients from './components/Clients.js' 
-import Posts from './components/Posts.js' 
+import Box from '@mui/material/Box'
+
+import Header from './components/Header'
+import Posts from './components/Posts' 
+import Users from './components/Users' 
+import Footer from './components/Footer' 
 
 const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
@@ -11,13 +15,14 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client} >
-      <div className="container">
-        <h1>Start a blog</h1>
-        <Clients />
+      <Box>
+        <Header />
+        <Users />
         <Posts />
-      </div>
+        <Footer />
+      </Box>
     </ApolloProvider>
-  );
+  )
 }
 
 export default App;
