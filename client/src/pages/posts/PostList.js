@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-import { getFullname, dateFormat, titleCase } from './util'
+import { getFullname, dateFormat, titleCase } from '../../components/util/util'
  
 const PostList = ({post}) => {
 

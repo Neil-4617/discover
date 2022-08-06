@@ -4,7 +4,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import PersonIcon from '@mui/icons-material/Person'
 
-import { getFullname, titleCase } from './util'
+import { getFullname, titleCase } from '../../components/util/util'
 
 const UsersList = ({user}) => {
 	return (
