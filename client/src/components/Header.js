@@ -5,12 +5,6 @@ const Header = () => {
 	return(
 		<>
 			<Nav/>
-			<Box sx={{
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center'
-				}}>
-			</Box>
 		</>
 	)
 }

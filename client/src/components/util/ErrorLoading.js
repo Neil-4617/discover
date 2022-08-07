@@ -10,7 +10,7 @@ const ErrorLoading = () => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            minHeight: '80vh',
+            minHeight: '50vh',
             gap: 2,
           }}>
           <SvgIcon color='error' fontSize='large'>
@@ -22,7 +22,7 @@ const ErrorLoading = () => {
             src='./assets/images/misc-junked-tool-part.svg'
             alt='error image'
             sx={{
-                height: '20vh',
+                maxHeight: '20vh',
                 py: '4rem',
             }}  />
         </Box>

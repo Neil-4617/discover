@@ -9,6 +9,7 @@ const Footer = () => {
 			component='div' 
 			sx={{ 
 				minHeight: '8vh',
+				mt:'auto',
 				bgcolor: 'primary.main',
 				display: 'flex',
 				justifyContent: 'center',

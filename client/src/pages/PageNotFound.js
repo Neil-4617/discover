@@ -14,6 +14,7 @@ const PageNotFound = () => {
 	return (
 		<Box
 			sx={{
+				maxHeigth: '50vh',
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',

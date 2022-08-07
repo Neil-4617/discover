@@ -5,7 +5,10 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Box from '@mui/material/Box'
 
 // components
+import Nav from './components/Nav' 
+import Footer from './components/Footer' 
 import Homepage from './pages/home/Homepage' 
+import AddPost from './pages/posts/AddPost' 
 import Register from './pages/register/Register' 
 import Login from './pages/login/Login' 
 import PageNotFound from './pages/PageNotFound' 
@@ -38,13 +41,19 @@ const App = () => {
   return (
     <ApolloProvider client={client} >
       <Router>
-        <Box>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column', 
+          minHeight:'100vh' }} >
+          <Nav />
           <Routes>
             <Route path='/'  element={<Homepage/>} />
+            <Route path='/addpost'  element={<AddPost/>} />
             <Route path='/login'  element={<Login/>} />
             <Route path='/register'  element={<Register/>} />
             <Route path='*'  element={<PageNotFound/>} />
           </Routes>
+          <Footer/>
         </Box>
       </Router>
     </ApolloProvider>
