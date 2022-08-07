@@ -1,12 +1,14 @@
+import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+// Material UI
 import Box from '@mui/material/Box'
 
-import Header from './components/Header'
-import Footer from './components/Footer' 
-import Posts from './pages/posts/Posts' 
-import Users from './pages/users/Users' 
+// components
+import Homepage from './pages/home/Homepage' 
 import Register from './pages/register/Register' 
+import Login from './pages/login/Login' 
+import PageNotFound from './pages/PageNotFound' 
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -35,13 +37,16 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client} >
-      <Box>
-        <Header />
-        <Register />
-        <Users />
-        <Posts />
-        <Footer />
-      </Box>
+      <Router>
+        <Box>
+          <Routes>
+            <Route path='/'  element={<Homepage/>} />
+            <Route path='/login'  element={<Login/>} />
+            <Route path='/register'  element={<Register/>} />
+            <Route path='*'  element={<PageNotFound/>} />
+          </Routes>
+        </Box>
+      </Router>
     </ApolloProvider>
   )
 }

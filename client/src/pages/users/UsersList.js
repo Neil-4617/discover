@@ -4,7 +4,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import PersonIcon from '@mui/icons-material/Person'
 
-import { getFullname, titleCase } from '../../components/util/util'
+import { getFullname } from '../../components/util/util.js'
 
 const UsersList = ({user}) => {
 	return (
@@ -17,7 +17,7 @@ const UsersList = ({user}) => {
 				<ListItemAvatar>
 					<PersonIcon />
 				</ListItemAvatar>
-				<ListItemText primary={titleCase(getFullname(user.firstname, user.lastname))} secondary={user.email} />
+				<ListItemText primary={getFullname(user.firstname, user.lastname)} secondary={user.email} />
 			</ListItem>
 		</List>
 	)

@@ -32,10 +32,10 @@ const Posts = () => {
 					mx: '2rem'
 				}}
 			>
-				{data.posts.map(post =>(
-					<PostList key={post.id} post={post} />
-						
-				))}
+					{data.posts.map(post =>(
+						<PostList key={post.id} post={post} />
+					))}
+							
 			</Box>
 			)
 		}</>

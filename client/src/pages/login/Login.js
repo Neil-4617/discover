@@ -9,13 +9,9 @@ import InputAdornment from '@mui/material/InputAdornment'
 // import EmailIcon from '@mui/icons-material/Email'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useState } from 'react'
-import { useMutation } from '@apollo/client'
-
-import { ADD_USER } from '../../graphql/mutation.js'
-import { GET_USERS } from '../../graphql/queries.js'
 
 // initial values
 const initialValues = {
@@ -28,27 +24,16 @@ const initialValues = {
 	showConfirmPassword: false,
 }
 
-const Register = () => {
+const Login = () => {
 	const [values, setValues] = useState(initialValues);
 
-	//Add user 
-	const [addUser]= useMutation(ADD_USER, {
-		variables: { firstname:values.firstname, lastname:values.lastname, email: values.email },
-		update(cache, {data: {addUser} }){
-			const {users} = cache.readQuery({ query: GET_USERS})
-			cache.writeQuery({
-				query: GET_USERS,	
-				data: {users: [...users, addUser]}
-			})
-		}
-	})
 
 	const onSubmit = (e) => {
 		e.preventDefault()
-		if(values.firstname === '' || values.lastname === '' || values.email === ''){
+		if(values.email === ''){
 			return alert('Please fill all fields')
 		}
-		addUser(values.firstname, values.lastname, values.email)
+		console.log(values)
 		alert("successfully register")
 		setValues(initialValues)
 	}
@@ -75,10 +60,9 @@ const Register = () => {
 	const handleMouseDown = (event) => {
 		event.preventDefault();
 	};
-
 	return (
 		<Container>
-			<Box
+			<Box 
 				component= 'form'
 				sx={{
 					maginTop: '2rem',
@@ -88,31 +72,7 @@ const Register = () => {
 					justifyContent: 'center',
 					alignItems: 'center',
 					gap: 2,
-				}}
-			>	
-				
-				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
-					<InputLabel htmlFor = 'outlined-adornment-firstname'>Firstname</InputLabel>
-					<OutlinedInput
-						id = 'outlined-adornment-firstname'
-						type = 'text'
-						value = {values.firstname}
-						onChange = {handleChange('firstname')}
-						label = 'Firstname'
-					/>
-				</FormControl>
-
-				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
-					<InputLabel htmlFor = 'outlined-adornment-lastname'>Lastname</InputLabel>
-					<OutlinedInput
-						id = 'outlined-adornment-lastname'
-						type = 'text'
-						value = {values.lastname}
-						onChange = {handleChange('lastname')}
-						label = 'Lastname'
-					/>
-				</FormControl>
-				
+				}}>
 				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
 					<InputLabel htmlFor = 'outlined-adornment-email'>Email</InputLabel>
 					<OutlinedInput
@@ -123,7 +83,6 @@ const Register = () => {
 						label = 'Email'
 					/>
 				</FormControl>
-				
 
 				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
 					<InputLabel htmlFor = 'outlined-adornment-password'>Password</InputLabel>
@@ -171,10 +130,10 @@ const Register = () => {
 						/>
 				</FormControl>
 
-				<Button variant = 'contained' onClick ={onSubmit}  >Sign Up</Button>
+				<Button variant = 'contained' onClick ={onSubmit}  >Login</Button>
 			</Box>
 		</Container>
 	)
-} 
+}
 
-export default Register
+export default Login
