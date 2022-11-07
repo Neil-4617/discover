@@ -9,6 +9,7 @@ import Nav from './components/Nav'
 import Footer from './components/Footer' 
 import Homepage from './pages/home/Homepage' 
 import AddPost from './pages/posts/AddPost' 
+import Post from './pages/posts/Post' 
 import Register from './pages/register/Register' 
 import Login from './pages/login/Login' 
 import PageNotFound from './pages/PageNotFound' 
@@ -49,6 +50,7 @@ const App = () => {
           <Routes>
             <Route path='/'  element={<Homepage/>} />
             <Route path='/addpost'  element={<AddPost/>} />
+            <Route path='/post/:id'  element={<Post/>} />
             <Route path='/login'  element={<Login/>} />
             <Route path='/register'  element={<Register/>} />
             <Route path='*'  element={<PageNotFound/>} />

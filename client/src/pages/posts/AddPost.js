@@ -14,50 +14,42 @@ const AddPost = () => {
 
 	return (
 		<Box
+			component = "form"
 			sx={{
+				minHeight: '80vh',
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',
 				alignItems: 'center',
 				gap: 2,
-				m: '1rem',
-				py: '2rem',
+				p: '2rem',
+				mx: '2rem'
 			}}
 			>
 			<Typography>Create a new post</Typography>
 				<Box
 					sx={{
-						maxHeight: '75vh',
-						minWidth: '50vw',
-						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: 'center',
-						alignItems: 'center',
-						gap: 2,
-						p: '2rem',
+						minWidth: '50vw'
 					}}>
 			 
-					<FormControl fullWidth>
-						<TextField placeholder='title' />
-					</FormControl>
-						
-					<FormControl
+					<FormControl 
 						fullWidth
 						sx={{
-							minHeight: '50vh',
-						}} 
-						>
-					<TextField 
-						multiline
-						minRows = {15}
-						maxRows = {15}
-						placeholder='type your post here...'
+							gap: 2
+						}} >
+						<TextField placeholder='title' />
 						
-					/>
+						<TextField 
+							multiline
+							minRows = {10}
+							placeholder='type your post here...'
+							
+						/>
+						<Box textAlign = 'center'>
+							<Button variant='contained' >Add Post</Button>
+						</Box>
 					</FormControl>
-					<Button variant='contained' >Add Post</Button>
 				</Box>
-			
 		</Box>
 	)
 }

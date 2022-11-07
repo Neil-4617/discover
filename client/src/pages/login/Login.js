@@ -61,17 +61,17 @@ const Login = () => {
 		event.preventDefault();
 	};
 	return (
-		<Container>
 			<Box 
 				component= 'form'
 				sx={{
-					maginTop: '2rem',
-					padding: '2rem',
+					minHeight: '80vh',
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
 					alignItems: 'center',
 					gap: 2,
+					p: '2rem',
+					mx: '2rem'
 				}}>
 				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
 					<InputLabel htmlFor = 'outlined-adornment-email'>Email</InputLabel>
@@ -132,7 +132,6 @@ const Login = () => {
 
 				<Button variant = 'contained' onClick ={onSubmit}  >Login</Button>
 			</Box>
-		</Container>
 	)
 }
 

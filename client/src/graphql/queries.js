@@ -50,11 +50,15 @@ export const GET_POST = gql`
 	query getPost($id: ID!) {
 		post(id: $id){
 			id
-			firstname
-			lastname
-			email
+			title
+			text
 			createdAt
 			updatedAt
+			authorId{
+				firstname
+				lastname
+				email
+			}
 		}
 	}
 `

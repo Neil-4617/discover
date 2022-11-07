@@ -81,13 +81,14 @@ const Register = () => {
 			<Box
 				component= 'form'
 				sx={{
-					maginTop: '2rem',
-					padding: '2rem',
+					minHeight: '80vh',
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
 					alignItems: 'center',
 					gap: 2,
+					p: '2rem',
+					mx: '2rem'
 				}}
 			>	
 				

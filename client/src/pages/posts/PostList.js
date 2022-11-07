@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 import { getFullname, dateFormat, titleCase } from '../../components/util/util'
  
 const PostList = ({post}) => {
-
 
 	return (
 		<Card sx={{
@@ -32,11 +34,16 @@ const PostList = ({post}) => {
 				<Typography variant='body2' color='text.secondary' my='3px' noWrap>
 					{post.text}
 				</Typography>
-				<Button size='small'>
-					<Typography variant="caption">
-						continue reading...
-					</Typography>
-				</Button>
+				<Link to= {'post/'+ post.id}>
+					<Button size='small'>
+						<Typography variant="caption">
+							continue reading...
+						</Typography>
+					</Button>
+				</Link>
+				<IconButton size='small'>
+					<DeleteIcon/>
+				</IconButton>
 			</CardContent>
 		</Card>
 	)
