@@ -30,7 +30,7 @@ export const PostType = new GraphQLObjectType({
 		text: {type: GraphQLString},
 		createdAt: {type: GraphqlDateTimeCustom},
 		updatedAt: {type: GraphqlDateTimeCustom},
-		authorId: {
+		user: {
 			type: UserType,
 			resolve(parent){
 				return User.findById(parent.authorId)

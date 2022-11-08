@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 // components
 import Nav from './components/Nav' 
 import Footer from './components/Footer' 
+import Users from './pages/users/Users' 
 import Homepage from './pages/home/Homepage' 
 import AddPost from './pages/posts/AddPost' 
 import Post from './pages/posts/Post' 
@@ -49,6 +50,7 @@ const App = () => {
           <Nav />
           <Routes>
             <Route path='/'  element={<Homepage/>} />
+            <Route path='/users'  element={<Users/>} />
             <Route path='/addpost'  element={<AddPost/>} />
             <Route path='/post/:id'  element={<Post/>} />
             <Route path='/login'  element={<Login/>} />

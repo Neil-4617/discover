@@ -27,3 +27,36 @@ export const DELETE_USER = gql`
 		}
 	}
 `
+// Add Post
+
+export const ADD_POST = gql`
+	mutation addPost($title: String!, $text: String! $authorId: ID!){
+		addPost(title: $title, text: $text, authorId:$authorId){
+			id
+			title
+			text
+			createdAt
+			updatedAt
+			user{
+				id
+				firstname
+				lastname
+				email
+			}
+		}
+	}
+`
+// Delete Post
+
+export const DELETE_POST = gql `
+	mutation deletePost($id: ID!){
+		deletePost(id: $id){
+			id
+			title
+			text
+			createdAt
+			updatedAt
+			
+		}
+	}
+`

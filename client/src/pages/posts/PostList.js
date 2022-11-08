@@ -4,8 +4,6 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
 
 import { getFullname, dateFormat, titleCase } from '../../components/util/util'
  
@@ -20,7 +18,7 @@ const PostList = ({post}) => {
 		}}>
 			<CardHeader
 				title={titleCase(post.title)}
-				subheader={getFullname(post.authorId.firstname, post.authorId.lastname)}
+				subheader={getFullname(post.user.firstname, post.user.lastname)}
 			>
 			</CardHeader>
 			<CardContent>
@@ -41,9 +39,6 @@ const PostList = ({post}) => {
 						</Typography>
 					</Button>
 				</Link>
-				<IconButton size='small'>
-					<DeleteIcon/>
-				</IconButton>
 			</CardContent>
 		</Card>
 	)

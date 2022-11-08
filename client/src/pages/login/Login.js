@@ -1,4 +1,3 @@
-import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -15,13 +14,9 @@ import { useState } from 'react'
 
 // initial values
 const initialValues = {
-	firstname:'',
-	lastname: '',
 	email:'',
 	password:'',
-	confirmPassword: '',
 	showPassword: false,
-	showConfirmPassword: false,
 }
 
 const Login = () => {
@@ -34,7 +29,7 @@ const Login = () => {
 			return alert('Please fill all fields')
 		}
 		console.log(values)
-		alert("successfully register")
+		alert("successfully login")
 		setValues(initialValues)
 	}
 
@@ -46,13 +41,6 @@ const Login = () => {
 		setValues({
 		  ...values,
 		  showPassword: !values.showPassword,
-		})
-	}
-
-	const handleClickShowConfirmPassword = () => {
-		setValues({
-		  ...values,
-		  showConfirmPassword: !values.showConfirmPassword,
 		})
 	}
 
@@ -107,30 +95,7 @@ const Login = () => {
 						/>
 				</FormControl>
 
-				<FormControl sx={{ m: 1, width: '16rem' }} variant='outlined' >
-					<InputLabel>Confirm Password</InputLabel>
-					<OutlinedInput
-						id = "outlined-adornment-confirm-password"
-						type = {values.showConfirmPassword ? 'text' : 'password'}
-						value = {values.confirmPassword}
-						onChange = { handleChange('confirmPassword') }
-						label = "Confirm Password"
-						endAdornment = {
-								<InputAdornment position='end'>
-									<IconButton
-										aria-label = 'toggle confirm password visibility'
-										onClick = {handleClickShowConfirmPassword}
-										onMouseDown = {handleMouseDown}
-										edge = "end"
-									>
-										{values.showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
-									</IconButton>
-								</InputAdornment>
-							}
-						/>
-				</FormControl>
-
-				<Button variant = 'contained' onClick ={onSubmit}  >Login</Button>
+				<Button variant = 'contained' onClick ={onSubmit}>Login</Button>
 			</Box>
 	)
 }

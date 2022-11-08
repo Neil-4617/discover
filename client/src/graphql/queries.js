@@ -37,7 +37,7 @@ export const GET_ALL_POST = gql`
 			text
 			createdAt
 			updatedAt
-			authorId{
+			user{
 				id
 				firstname
 				lastname
@@ -54,7 +54,8 @@ export const GET_POST = gql`
 			text
 			createdAt
 			updatedAt
-			authorId{
+			user{
+				id
 				firstname
 				lastname
 				email

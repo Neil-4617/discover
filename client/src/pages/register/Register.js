@@ -14,7 +14,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
-import { ADD_USER } from '../../graphql/mutation.js'
+import { ADD_USER } from '../../graphql/mutations.js'
 import { GET_USERS } from '../../graphql/queries.js'
 
 // initial values

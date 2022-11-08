@@ -16,8 +16,7 @@ const Posts = () => {
 	if(loading) return <LoadingData/>
 
 	if(error) return <ErrorLoading/>
-			
-
+	
 	return (
 		<>{ !loading && !error && (
 			<Box

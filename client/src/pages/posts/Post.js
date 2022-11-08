@@ -1,5 +1,5 @@
-import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useQuery, useMutation } from '@apollo/client'
 
 // MaterialUI
 import Box from '@mui/material/Box'
@@ -9,9 +9,13 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import DeleteIcon from '@mui/icons-material/Delete'
+
+// delete mutation
+import {  DELETE_POST } from '../../graphql/mutations.js'
 
 // get post query
-import {  GET_POST } from '../../graphql/queries.js'
+import {  GET_POST, GET_ALL_POST } from '../../graphql/queries.js'
 
 import ErrorLoading from '../../components/util/ErrorLoading'
 import LoadingData from '../../components/util/LoadingData'
@@ -19,13 +23,20 @@ import { getFullname, dateFormat, titleCase } from '../../components/util/util'
 
 
 const Post = () => {
-
+	const navigate = useNavigate()
 	const { id }  = useParams()
+	const [deletePost] = useMutation(DELETE_POST, {
+		variables: {id},
+		onCompleted: () => navigate('/'),
+		refetchQueries: [{query: GET_ALL_POST}]
+	})
 	const { loading, error, data } = useQuery(GET_POST, {variables: {id}})
+
 
 	if(loading) return <LoadingData/>
 
 	if(error) return <ErrorLoading/>
+
 
 	return (
 		<>
@@ -57,7 +68,7 @@ const Post = () => {
 					}}>
 						<CardHeader
 							title={titleCase(data.post.title)}
-							subheader={getFullname(data.post.authorId.firstname, data.post.authorId.lastname)}
+							subheader={getFullname(data.post.user.firstname, data.post.user.lastname)}
 						/>
 						<CardContent>
 							<Typography 
@@ -69,7 +80,10 @@ const Post = () => {
 								>{dateFormat(data.post.updatedAt)}</Typography>
 							<Typography variant='body2' color='text.secondary' my='3px'>
 								{data.post.text}
-							</Typography>	
+							</Typography>
+							<IconButton size='small' onClick={deletePost}>
+								<DeleteIcon/>
+							</IconButton>
 						</CardContent>
 					</Card>
 				</Box>
