@@ -1,4 +1,6 @@
- import { 
+import bcrypt from 'bcrypt'
+
+import { 
 	GraphQLObjectType,
 	GraphQLNonNull,
 	GraphQLString,
@@ -12,6 +14,9 @@ import {PostType} from './typeDef.js'
 import { User } from '../models/User.js' 
 import { Post } from '../models/Post.js' 
 
+// token
+import { createToken } from '../auth.js'
+
 export const Mutation = new GraphQLObjectType({
 	name: 'Mutation',
 	fields: {
@@ -22,16 +27,47 @@ export const Mutation = new GraphQLObjectType({
 				firstname: { type: new GraphQLNonNull(GraphQLString) }, 
 				lastname: { type: new GraphQLNonNull(GraphQLString) }, 
 				email: { type: new GraphQLNonNull(GraphQLString) }, 
+				password: { type: new GraphQLNonNull(GraphQLString) },
 				},
 			resolve(_, args) {
 				const user = new User({
 					firstname: args.firstname,
 					lastname: args.lastname,
-					email: args.email
+					email: args.email,
+					password: bcrypt.hashSync(args.password, 10),
+					role: 'member'
 				})
 				return user.save()
 			}
 		},
+
+		// login user
+		loginUser: {
+			type: UserType,
+			args: {
+				email: { type: new GraphQLNonNull(GraphQLString) }, 
+				password: { type: new GraphQLNonNull(GraphQLString) }, 
+			},
+			resolve(_, args) {
+				// check if user exist using email
+				const query = User.findOne({email: args.email})
+				
+				return query.then((user) => user).then((user)=> {
+					if(!user) return null
+		
+					const isPasswordMatched = bcrypt.compareSync(args.password, user.password)
+
+					if (isPasswordMatched) {
+						user.token = createToken(user.toObject())
+						return user
+					}
+					else {
+						return null
+					}
+				})
+			}
+		},
+
 		// delete user
 		deleteUser:{
 			type: UserType,
@@ -40,6 +76,7 @@ export const Mutation = new GraphQLObjectType({
 				return User.findByIdAndRemove(args.id)
 			}
 		},
+
 		// update user
 		updateUser: {
 			type: UserType,
@@ -48,6 +85,7 @@ export const Mutation = new GraphQLObjectType({
 				firstname: { type: new GraphQLNonNull(GraphQLString) },
 				lastname: { type: new GraphQLNonNull(GraphQLString) },
 				email: { type: new GraphQLNonNull(GraphQLString) },
+				role: { type: new GraphQLNonNull(GraphQLString) },
 			},
 			resolve(_, args){
 				return User.findOneAndUpdate(
@@ -57,6 +95,7 @@ export const Mutation = new GraphQLObjectType({
 							firstname: args.firstname,
 							lastname: args.lastname,
 							email: args.email,
+							role: args.role,
 							updatedAt: new Date().toISOString()
 						},
 					},
@@ -64,6 +103,7 @@ export const Mutation = new GraphQLObjectType({
 				)
 			}
 		},
+
 		// add post
 		addPost: {
 			type: PostType,
@@ -81,6 +121,7 @@ export const Mutation = new GraphQLObjectType({
 				return post.save()
 			}
 		},
+		
 		// delete post
 		deletePost:{
 			type: PostType,
@@ -89,6 +130,8 @@ export const Mutation = new GraphQLObjectType({
 				return Post.findByIdAndRemove(args.id)
 			}
 		},
+
+		// update post
 		updatePost:{
 			type: PostType,
 			args: {

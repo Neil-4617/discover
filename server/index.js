@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import { graphqlHTTP } from 'express-graphql'
 import { GraphQLSchema } from 'graphql'
 
+import {authVerify} from './auth.js'
 import {schema} from './schema/schema.js'
 
 // env
@@ -26,7 +27,14 @@ mongoose.connection.once('open', ()=>{
 app.use(cors())
 
 // graphql
-app.use('/graphql', graphqlHTTP({ schema, graphiql: process.env.NODE_ENV === 'development' }))
+app.use('/graphql', graphqlHTTP((req, res) => ({ 
+	schema, 
+	graphiql: process.env.NODE_ENV === 'development',
+	context: {
+        request: req,
+        currentUser: authVerify(req.headers.authorization)
+    }
+})))
 
 // listen
 app.listen(port, console.log(`Server running on port ${port}`))
