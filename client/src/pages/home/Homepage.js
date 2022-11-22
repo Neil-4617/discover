@@ -1,12 +1,10 @@
-
 // components
 import Posts from '../posts/Posts' 
 
 const Homepage = () => {
+
 	return (
-		<>
-			<Posts />
-		</>
+		<Posts /> 
 	)
 } 
 

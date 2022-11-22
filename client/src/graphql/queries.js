@@ -45,6 +45,24 @@ export const GET_ALL_POST = gql`
 		}
 	}
 `
+// Get all posts by user
+export const GET_ALL_POST_BY_USER = gql`
+	query geAllPostByUser($userId: String!){
+		posts(userId: $userId){
+			id
+			title
+			text
+			createdAt
+			updatedAt
+			user{
+				id
+				firstname
+				lastname
+			}
+		}
+	}
+`
+
 // GET POST
 export const GET_POST = gql`
 	query getPost($id: ID!) {

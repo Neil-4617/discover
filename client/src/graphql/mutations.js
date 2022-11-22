@@ -8,8 +8,26 @@ export const ADD_USER = gql`
 			firstname
 			lastname
 			email
+			role
+			token
 			createdAt
 			updatedAt
+		}
+	}
+`
+
+// Login User
+export const LOGIN_USER = gql`
+	mutation loginUser($email: String!, $password: String!){
+		loginUser(email: $email, password: $password){
+			id
+			firstname
+			lastname
+			email
+			role
+			token
+			createdAt
+			updatedAt	
 		}
 	}
 `

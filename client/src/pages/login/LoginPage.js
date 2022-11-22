@@ -4,13 +4,17 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
-// import AccountCircle from '@mui/icons-material/AccountCircle'
-// import EmailIcon from '@mui/icons-material/Email'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+import useAuth from '../../components/hooks/useAuth'
+
+import { LOGIN_USER } from '../../graphql/mutations'
+
 
 // initial values
 const initialValues = {
@@ -19,22 +23,53 @@ const initialValues = {
 	showPassword: false,
 }
 
-const Login = () => {
-	const [values, setValues] = useState(initialValues);
+const LoginPage = () => {
+	const {setAuth} = useAuth() 
+
+	const navigate = useNavigate()
+	const location = useLocation()
+	// check where page heading and page came from
+	const from = location.state?.from?.pathname || '/'
 
 
-	const onSubmit = (e) => {
+
+	const [loginUser] = useMutation(LOGIN_USER) 
+	const [values, setValues] = useState(initialValues)
+
+	const login = (e) => {
 		e.preventDefault()
-		if(values.email === ''){
+		if(values.email === '' || values.password === ''){
 			return alert('Please fill all fields')
 		}
-		console.log(values)
-		alert("successfully login")
-		setValues(initialValues)
-	}
+		loginUser({
+			variables: {
+				email: values.email, 
+				password: values.password
+			}
+		}).then((response) => {
+			const data = response.data.loginUser
 
-	const handleChange = (prop) => (event) => {
-		setValues({ ...values, [prop]: event.target.value });
+			if (data){
+				localStorage.setItem('userId', data.id)
+				localStorage.setItem('user', data.firstname)
+				localStorage.setItem('role', data.role)
+				localStorage.setItem('token', data.token)
+				
+				// store in global context
+				setAuth({userId: data.id, user:data.firstname, role: data.role, token: data.token})
+				alert("successfully login")
+				setValues(initialValues)
+				navigate(from, { replace: true })
+			}
+			else {
+				alert("Login Failed")
+			}
+		})
+	} 
+
+
+	const handleChange = (prop) => (e) => {
+		setValues({ ...values, [prop]: e.target.value });
 	};
 
 	const handleClickShowPassword = () => {
@@ -45,9 +80,9 @@ const Login = () => {
 	}
 
 
-	const handleMouseDown = (event) => {
-		event.preventDefault();
-	};
+	const handleMouseDown = (e) => {
+		e.preventDefault()
+	}
 	return (
 			<Box 
 				component= 'form'
@@ -60,7 +95,8 @@ const Login = () => {
 					gap: 2,
 					p: '2rem',
 					mx: '2rem'
-				}}>
+				}}
+				onSubmit= {(e) => login(e)} >
 				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
 					<InputLabel htmlFor = 'outlined-adornment-email'>Email</InputLabel>
 					<OutlinedInput
@@ -95,9 +131,9 @@ const Login = () => {
 						/>
 				</FormControl>
 
-				<Button variant = 'contained' onClick ={onSubmit}>Login</Button>
+				<Button variant = 'contained' type='submit'>Login</Button>
 			</Box>
 	)
 }
 
-export default Login
+export default LoginPage

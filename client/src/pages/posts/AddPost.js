@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 // Material UI
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -7,22 +5,8 @@ import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-const AddPost = () => {
-	
-	const [title, setTitle] = useState('')
-	const [text, setText] = useState('')
+const AddPost = ({handleSubmit, title, setTitle, text, setText}) => {
 
-	const onSubmit = (e) => {
-		e.preventDefault()
-
-		if(title === '' || text === '') {
-			return alert('Please fill in all fields')
-		}
-		console.log(title, text)
-		alert('Post Added')
-		setTitle('')
-		setText('')
-	}
 
 	return (
 		<>
@@ -38,6 +22,7 @@ const AddPost = () => {
 					p: '2rem',
 					mx: '2rem'
 				}}
+				onSubmit = {(e) => handleSubmit(e)}
 				>
 				<Typography>Create a new post</Typography>
 					<Box
@@ -63,7 +48,7 @@ const AddPost = () => {
 								onChange={(e) => setText(e.target.value)}
 							/>
 							<Box textAlign = 'center'>
-								<Button variant='contained' onClick={onSubmit}>Add Post</Button>
+								<Button variant='contained' type='submit'>Add Post</Button>
 							</Box>
 						</FormControl>
 					</Box>
