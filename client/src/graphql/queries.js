@@ -47,8 +47,8 @@ export const GET_ALL_POST = gql`
 `
 // Get all posts by user
 export const GET_ALL_POST_BY_USER = gql`
-	query geAllPostByUser($userId: String!){
-		posts(userId: $userId){
+	query getAllPostByUser{
+		userPosts{
 			id
 			title
 			text
@@ -58,6 +58,8 @@ export const GET_ALL_POST_BY_USER = gql`
 				id
 				firstname
 				lastname
+				email
+				role
 			}
 		}
 	}

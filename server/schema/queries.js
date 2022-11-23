@@ -38,7 +38,7 @@ export const RootQuery = new GraphQLObjectType({
 		},
 		posts: {
 			type: new GraphQLList(PostType),
-			resolve(){
+			resolve(_, args){
 				return Post.find()
 			}
 		},
@@ -49,6 +49,15 @@ export const RootQuery = new GraphQLObjectType({
 				return Post.findById(args.id)
 			}
 		},
+		userPosts:{
+			type: new GraphQLList(PostType),
+			resolve(_, args, context) {
+				const userId = context.currentUser._id
+				const postByUser = Post.find({ authorId: userId})
+				return postByUser
+			}
+		}
+
 		
 	}
 })
