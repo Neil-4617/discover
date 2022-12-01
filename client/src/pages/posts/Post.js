@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import DeleteIcon from '@mui/icons-material/Delete'
-
+import EditIcon from '@mui/icons-material/Edit'
 // delete mutation
 import {  DELETE_POST } from '../../graphql/mutations.js'
 
@@ -32,7 +32,6 @@ const Post = () => {
 	})
 	const { loading, error, data } = useQuery(GET_POST, {variables: {id}})
 
-
 	if(loading) return <LoadingData/>
 
 	if(error) return <ErrorLoading/>
@@ -42,16 +41,16 @@ const Post = () => {
 		<>
 			{!loading && !error && (
 				<Box
-				sx={{
-					minHeight: '80vh',
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center',
-					gap: 2,
-					padding: '2rem',
-					mx: '2rem'
-				}}
+					sx={{
+						minHeight: '80vh',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						gap: 2,
+						padding: '2rem',
+						mx: '2rem'
+					}}
 				>
 					<Box alignSelf='flex-start'>
 						<Link to={'/'}>
@@ -84,6 +83,12 @@ const Post = () => {
 							<IconButton size='small' onClick={deletePost}>
 								<DeleteIcon/>
 							</IconButton>
+							<Link to={'/post-edit/'+ data.post.id}>
+								<IconButton size='small'>
+									<EditIcon/>
+								</IconButton>
+							</Link>
+							
 						</CardContent>
 					</Card>
 				</Box>

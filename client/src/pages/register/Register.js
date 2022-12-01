@@ -1,5 +1,9 @@
-import Container from '@mui/material/Container'
+// Dependencies
+import { useContext} from 'react'
+
+// Material UI
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
@@ -11,87 +15,32 @@ import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import { useState } from 'react'
-import { useMutation } from '@apollo/client'
 
-import { ADD_USER } from '../../graphql/mutations.js'
-import { GET_USERS } from '../../graphql/queries.js'
-
-// initial values
-const initialValues = {
-	firstname:'',
-	lastname: '',
-	email:'',
-	password:'',
-	confirmPassword: '',
-	showPassword: false,
-	showConfirmPassword: false,
-}
+import DataContext from '../../components/context/DataContext'
 
 const Register = () => {
-	const [values, setValues] = useState(initialValues);
-
-	//Add user 
-	const [addUser]= useMutation(ADD_USER, {
-		variables: { firstname:values.firstname, lastname:values.lastname, email: values.email },
-		update(cache, {data: {addUser} }){
-			const {users} = cache.readQuery({ query: GET_USERS})
-			cache.writeQuery({
-				query: GET_USERS,	
-				data: {users: [...users, addUser]}
-			})
-		}
-	})
-
-	const onSubmit = (e) => {
-		e.preventDefault()
-		if(values.firstname === '' || values.lastname === '' || values.email === ''){
-			return alert('Please fill all fields')
-		}
-		addUser(values.firstname, values.lastname, values.email)
-		alert("successfully register")
-		setValues(initialValues)
-	}
-
-	const handleChange = (prop) => (event) => {
-		setValues({ ...values, [prop]: event.target.value });
-	};
-
-	const handleClickShowPassword = () => {
-		setValues({
-		  ...values,
-		  showPassword: !values.showPassword,
-		})
-	}
-
-	const handleClickShowConfirmPassword = () => {
-		setValues({
-		  ...values,
-		  showConfirmPassword: !values.showConfirmPassword,
-		})
-	}
-
-
-	const handleMouseDown = (event) => {
-		event.preventDefault();
-	};
+	const {
+		values,
+		handleChange,
+		handleClickShowPassword,
+		handleClickShowConfirmPassword,
+		handleMouseDown,
+		addNewUser
+		} = useContext(DataContext)
 
 	return (
-		<Container>
 			<Box
 				component= 'form'
 				sx={{
-					minHeight: '80vh',
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
 					alignItems: 'center',
-					gap: 2,
-					p: '2rem',
-					mx: '2rem'
+					gap: 1
 				}}
+				onSubmit={(e) =>addNewUser(e)}
 			>	
-				
+				<Typography variant='h6'>Sign in</Typography>
 				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
 					<InputLabel htmlFor = 'outlined-adornment-firstname'>Firstname</InputLabel>
 					<OutlinedInput
@@ -171,10 +120,8 @@ const Register = () => {
 							}
 						/>
 				</FormControl>
-
-				<Button variant = 'contained' onClick ={onSubmit}  >Sign Up</Button>
+				<Button variant = 'contained' type='submit' sx={{mb:'1rem'}} >Sign up</Button>
 			</Box>
-		</Container>
 	)
 } 
 

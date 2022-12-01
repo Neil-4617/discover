@@ -18,24 +18,11 @@ const Posts = () => {
 	if(error) return <ErrorLoading/>
 	
 	return (
-		<>{ !loading && !error && (
-			<Box
-				sx={{
-					minHeight: '80vh',
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center',
-					gap: 2,
-					padding: '2rem',
-					mx: '2rem'
-				}}
-			>
+		<>{ !loading && !error && (<>
 					{data.posts.map(post =>(
 						<PostList key={post.id} post={post} />
 					))}
-							
-			</Box>
+			</>					
 			)
 		}</>
 	)

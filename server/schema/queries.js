@@ -15,7 +15,8 @@ import { Post } from '../models/Post.js'
 
 // query
 export const RootQuery = new GraphQLObjectType({
-	name: 'RootQueryType',
+	name: 'RootQuery',
+	description: 'Represents a query to collection',
 	fields: {
 		currentDate: {
 			type: GraphqlDateTimeCustom,
@@ -38,7 +39,7 @@ export const RootQuery = new GraphQLObjectType({
 		},
 		posts: {
 			type: new GraphQLList(PostType),
-			resolve(_, args){
+			resolve(){
 				return Post.find()
 			}
 		},
@@ -57,7 +58,5 @@ export const RootQuery = new GraphQLObjectType({
 				return postByUser
 			}
 		}
-
-		
 	}
 })

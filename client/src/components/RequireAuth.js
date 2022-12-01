@@ -1,9 +1,10 @@
+import { useContext } from 'react'
 import { useLocation, Navigate, Outlet } from 'react-router-dom'
-import useAuth from './hooks/useAuth'
 
-
+import DataContext from './context/DataContext'
+// enable user to navigate in chosen route after successful login
 const RequireAuth = () => {
-	const { auth } = useAuth()
+	const { auth } = useContext(DataContext)
 	const location = useLocation()
 
 	return (

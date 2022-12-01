@@ -2,12 +2,7 @@ import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-// Material UI
-import Box from '@mui/material/Box'
-
 // components
-import Nav from './components/Nav' 
-import Footer from './components/Footer' 
 import Users from './pages/users/Users' 
 import Homepage from './pages/home/Homepage' 
 import Dashboard from './pages/users/Dashboard' 
@@ -17,12 +12,12 @@ import Register from './pages/register/Register'
 import LoginPage from './pages/login/LoginPage' 
 import PageNotFound from './pages/PageNotFound' 
 import Layout from './components/Layout'
-import Linkpage from './components/Linkpage'
 import RequireAuth from './components/RequireAuth'
+import UpdatePostForm from './pages/posts/UpdatePostForm'
 
 
 //  context
-import { AuthProvider } from './components/context/AuthProvider'
+import { DataProvider } from './components/context/DataContext'
 
 // Apollo setup
 // Link 
@@ -69,38 +64,31 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client} >
-    <AuthProvider>
       <Router>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column', 
-          minHeight:'100vh' }} >
-          <Nav />
-          <Routes>
-            <Route path='/'  element={<Layout/>} >
+        <DataProvider>
+        <Routes>
+          <Route path='/'  element={<Layout/>} >
 
-              {/* protected routes */}
-              <Route element={<RequireAuth />}>
-                <Route path='/dashboard'  element={<Dashboard/>} />
-                <Route path='/users'  element={<Users/>} />
-                <Route path='/addpost'  element={<AddPost/>} />
-                <Route path='/post/:id'  element={<Post/>} />
-              </Route>
-
-              {/* public routes */}
-              <Route path='/'  element={<Homepage/>} />
-              <Route path='/linkpage'  element={<Linkpage/>} />
-              <Route path='/login'  element={<LoginPage/>} />
-              <Route path='/register'  element={<Register/>} />
-              
-              <Route path='*'  element={<PageNotFound/>} />
-            
+            {/* protected routes */}
+            <Route element={<RequireAuth />}>
+              <Route path='/dashboard'  element={<Dashboard/>} />
+              <Route path='/users'  element={<Users/>} />
+              <Route path='/addpost'  element={<AddPost/>} />
+              <Route path='/post/:id'  element={<Post/>} />
+              <Route path='/post-edit/:id'  element={<UpdatePostForm/>} />
             </Route>
-          </Routes>
-          <Footer/>
-        </Box>
+
+            {/* public routes */}
+            <Route path='/'  element={<Homepage/>} />
+            <Route path='/login'  element={<LoginPage/>} />
+            <Route path='/register'  element={<Register/>} />
+            
+            <Route path='*'  element={<PageNotFound/>} />
+          
+          </Route>
+        </Routes>
+      </DataProvider>
       </Router>
-    </AuthProvider>
     </ApolloProvider>
   )
 }

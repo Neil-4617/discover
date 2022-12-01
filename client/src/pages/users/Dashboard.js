@@ -3,43 +3,36 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
 
-import AddPost from '../posts/AddPost'
 import { ADD_POST } from '../../graphql/mutations'
-import { GET_ALL_POST_BY_USER } from '../../graphql/queries'
+import { GET_ALL_POST_BY_USER, GET_ALL_POST} from '../../graphql/queries'
 
 import UserPosts from './UserPosts'
+import AddPost from '../posts/AddPost'
+
+
 
 const Dashboard = () => {
 	const [addPost] = useMutation(ADD_POST)
 	
 	const {data} = useQuery(GET_ALL_POST_BY_USER)
 
-
 	const [isOpen, setIsOpen] = useState(false)
 	const [title, setTitle] = useState('')
 	const [text, setText] = useState('')
-	const navigate = useNavigate()
 
-	const user = localStorage.getItem('user')
+	const user = localStorage.getItem('user') || null
 	const userId = localStorage.getItem('userId')
 
 	const addPostButtonLabel = isOpen ? 'Close' : 'Create Post' 
 
-	// handle user logout
-	const logoutUser = () => {
-		localStorage.removeItem('token')
-		localStorage.removeItem('userId')
-		localStorage.removeItem('user')
-		localStorage.removeItem('role')
-		navigate('/')
-	}
+	useEffect(() => {}, [data])
 
 	// handle add/submit post
-	const handleSubmit = (e) => {
+	const handleAddPost = (e) => {
 		e.preventDefault()
 		// check user id
 		if(!user){
@@ -53,7 +46,7 @@ const Dashboard = () => {
 					text: text,
 					authorId: userId
 				},
-				refetchQueries: [{query: GET_ALL_POST_BY_USER}]
+				refetchQueries: [{query: GET_ALL_POST}],
 			}).then((response) => {
 				const post = response.data.addPost
 
@@ -72,42 +65,38 @@ const Dashboard = () => {
 	
 
 	return (
-		<Box
-				sx={{
-					minHeight: '80vh',
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center',
-					gap: 2,
-					padding: '2rem',
-					mx: '2rem'
-				}}
-			>
+		<>
 		{ user 
-			?<>	
-				 
+			?<>		 
 				<Typography>{user}'s Dashboard</Typography>
 				
-				<Button onClick={() => navigate('/')}>Go to Homepage</Button>
-				<Button>Profile</Button>
-				<Button onClick={logoutUser}>Logout</Button>
 				<Button onClick={() => setIsOpen(!isOpen)}>{addPostButtonLabel}</Button>
-				{isOpen ? <AddPost handleSubmit={handleSubmit} title={title} setTitle={setTitle} text={text} setText={setText}/>: null}
-				{data 
-					? (data.userPosts.map(userPost =>
-						<UserPosts key={userPost.id} userPost={userPost} />
-						) )
-					: (<Typography>Your post will display here...</Typography>)
-}
+				{isOpen ? <AddPost handleAddPost={handleAddPost} title={title} setTitle={setTitle} text={text} setText={setText}/>: null}
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						gap: 2,
+						padding: '2rem',
+						mx: '2rem'
+					}}>
+					{data 
+						? (data.userPosts.map(userPost =>
+							<UserPosts key={userPost.id} userPost={userPost} />
+							) )
+						: (<Typography>Your post will display here...</Typography>)
+					}
+				</Box>
 			</>
 			: <>
-				{navigate('/') }
-				<Typography>user login failed</Typography>
+				<Typography sx={{ mx:'auto' }}>user login failed</Typography>
 				<Link to='/login'>Click here to login</Link>
 			</>
 		}
-		</Box>
+		</>
 	)
 }
+
 export default Dashboard

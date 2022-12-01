@@ -32,7 +32,7 @@ const PostList = ({post}) => {
 				<Typography variant='body2' color='text.secondary' my='3px' noWrap>
 					{post.text}
 				</Typography>
-				<Link to= {'post/'+ post.id}>
+				<Link to= {'/post/'+ post.id}>
 					<Button size='small'>
 						<Typography variant="caption">
 							continue reading...

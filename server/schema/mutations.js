@@ -19,10 +19,12 @@ import { createToken } from '../auth.js'
 
 export const Mutation = new GraphQLObjectType({
 	name: 'Mutation',
+	description: 'Represent type of changes to collection',
 	fields: {
 		// add user
 		addUser: {
 			type: UserType,
+			description: 'Add user with a default role value for member',
 			args: { 
 				firstname: { type: new GraphQLNonNull(GraphQLString) }, 
 				lastname: { type: new GraphQLNonNull(GraphQLString) }, 
@@ -44,6 +46,7 @@ export const Mutation = new GraphQLObjectType({
 		// login user
 		loginUser: {
 			type: UserType,
+			description: 'Authenticate User and create a token',
 			args: {
 				email: { type: new GraphQLNonNull(GraphQLString) }, 
 				password: { type: new GraphQLNonNull(GraphQLString) }, 
@@ -71,6 +74,7 @@ export const Mutation = new GraphQLObjectType({
 		// delete user
 		deleteUser:{
 			type: UserType,
+			description: 'Remove user completely to collection',
 			args: { id: { type: GraphQLNonNull(GraphQLID) } },
 			resolve(_, args){
 				return User.findByIdAndRemove(args.id)
@@ -80,6 +84,7 @@ export const Mutation = new GraphQLObjectType({
 		// update user
 		updateUser: {
 			type: UserType,
+			description: 'Update User',
 			args: {
 				id: { type: new GraphQLNonNull(GraphQLID) },
 				firstname: { type: new GraphQLNonNull(GraphQLString) },
@@ -107,6 +112,7 @@ export const Mutation = new GraphQLObjectType({
 		// add post
 		addPost: {
 			type: PostType,
+			description: 'Authorized user can create post',
 			args: { 
 				title: { type: new GraphQLNonNull(GraphQLString) }, 
 				text: { type: new GraphQLNonNull(GraphQLString) },  
@@ -125,6 +131,7 @@ export const Mutation = new GraphQLObjectType({
 		// delete post
 		deletePost:{
 			type: PostType,
+			description: 'Remove post completely from collection by authorized user',
 			args: { id: { type: GraphQLNonNull(GraphQLID) } },
 			resolve(_, args){
 				return Post.findByIdAndRemove(args.id)
@@ -134,23 +141,18 @@ export const Mutation = new GraphQLObjectType({
 		// update post
 		updatePost:{
 			type: PostType,
+			description: 'Authorized user can update post',
 			args: {
 				id: { type: new GraphQLNonNull(GraphQLID) },
 				title: { type: new GraphQLNonNull(GraphQLString) },
 				text: { type: new GraphQLNonNull(GraphQLString) }
 			},
 			resolve(_, args) {
-				return Post.findOneAndUpdate(
-					args.id,
-					{
-						$set: {
-							title: args.title,
-							text: args.text,
-							updatedAt: new Date().toISOString()
-						}
-					},
-					{ new: true }
-				)
+				const postId = {id : args._id}
+				const postDetails = { title: args.title, text: args.text, updatedAt: new Date().toISOString()}
+				console.log(postId, postDetails)
+
+				return Post.findOneAndUpdate(postId, postDetails)
 			}
 		},
 	}

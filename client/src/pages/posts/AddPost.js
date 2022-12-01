@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-const AddPost = ({handleSubmit, title, setTitle, text, setText}) => {
+const AddPost = ({handleAddPost, title, setTitle, text, setText}) => {
 
 
 	return (
@@ -22,7 +22,7 @@ const AddPost = ({handleSubmit, title, setTitle, text, setText}) => {
 					p: '2rem',
 					mx: '2rem'
 				}}
-				onSubmit = {(e) => handleSubmit(e)}
+				onSubmit = {(e) => handleAddPost(e)}
 				>
 				<Typography>Create a new post</Typography>
 					<Box
