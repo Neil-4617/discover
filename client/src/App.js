@@ -21,8 +21,10 @@ import { DataProvider } from './components/context/DataContext'
 
 // Apollo setup
 // Link 
+// uri: 'http://localhost:5000/graphql'
+
 const httpLink = new HttpLink({
-  uri: 'http://localhost:5000/graphql'
+  uri: 'https://neil-discover-api.onrender.com/graphql'
 })
 
 // token
