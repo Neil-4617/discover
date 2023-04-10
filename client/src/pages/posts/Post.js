@@ -17,9 +17,9 @@ import {  DELETE_POST } from '../../graphql/mutations.js'
 // get post query
 import {  GET_POST, GET_ALL_POST } from '../../graphql/queries.js'
 
-import ErrorLoading from '../../components/util/ErrorLoading'
-import LoadingData from '../../components/util/LoadingData'
-import { getFullname, dateFormat, titleCase } from '../../components/util/util'
+import ErrorLoading from '../../util/ErrorLoading'
+import LoadingData from '../../util/LoadingData'
+import { getFullname, dateFormat, titleCase } from '../../util/util'
 
 
 const Post = () => {
@@ -35,7 +35,6 @@ const Post = () => {
 	if(loading) return <LoadingData/>
 
 	if(error) return <ErrorLoading/>
-
 
 	return (
 		<>
@@ -78,7 +77,7 @@ const Post = () => {
 								}}
 								>{dateFormat(data.post.updatedAt)}</Typography>
 							<Typography variant='body2' color='text.secondary' my='3px'>
-								{data.post.text}
+								{data.post.body}
 							</Typography>
 							<IconButton size='small' onClick={deletePost}>
 								<DeleteIcon/>

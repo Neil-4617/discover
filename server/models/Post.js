@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const PostSchema = new mongoose.Schema(
 	{
 		title: { type: String },
-		text: { type: String },
+		body: { type: String },
 		authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }		
 	}, 
 	{ timestamps: true }

@@ -47,11 +47,11 @@ export const DELETE_USER = gql`
 `
 // Add Post
 export const ADD_POST = gql`
-	mutation addPost($title: String!, $text: String! $authorId: ID!){
-		addPost(title: $title, text: $text, authorId:$authorId){
+	mutation addPost($title: String!, $body: String! $authorId: ID!){
+		addPost(title: $title, body: $body, authorId:$authorId){
 			id
 			title
-			text
+			body
 			createdAt
 			updatedAt
 			user{
@@ -69,7 +69,7 @@ export const DELETE_POST = gql `
 		deletePost(id: $id){
 			id
 			title
-			text
+			body
 			createdAt
 			updatedAt
 			
@@ -78,11 +78,11 @@ export const DELETE_POST = gql `
 `
 // Update Post
 export const UPDATE_POST = gql`
-	mutation updatePost($id: ID!, $title: String!, $text: String!){
-		updatePost(id: $id, title: $title, text: $text){
+	mutation updatePost($id: ID!, $title: String!, $body: String!){
+		updatePost(id: $id, title: $title, body: $body){
 			id
 			title
-			text
+			body
 			createdAt
 			updatedAt
 		}

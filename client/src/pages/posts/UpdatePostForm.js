@@ -23,16 +23,15 @@ const UpdatePostForm = () => {
 	const from = location.state?.from?.pathname || '/'
 
 	const {data} = useQuery(GET_POST, {variables:{id}})
-	console.log(id)
-	console.log(data.post.id)
+
 	const [titleEdit, setTitleEdit] = useState(data.post.title || '')
-	const [textEdit, setTextEdit] = useState(data.post.text || '')
+	const [bodyEdit, setBodyEdit] = useState(data.post.body || '')
 
 	const [updatePost] = useMutation(UPDATE_POST, {
 		variables: {
 			id: data.post.id,
 			title: titleEdit,
-			text: textEdit
+			body: bodyEdit
 			},
 		refetchQueries: [{query: GET_POST, variables: {id: data.post.id}}],
 		onCompleted: () => navigate('/dashboard')
@@ -43,14 +42,13 @@ const UpdatePostForm = () => {
 	const handleUpdatePost = (e) => {
 		e.preventDefault()
 
-		if(titleEdit === '' || textEdit === ''){
+		if(titleEdit === '' || bodyEdit === ''){
 			return alert('Please fill all fields')
 		}
 		// update post
-		console.log(id, titleEdit, textEdit)
-		updatePost(titleEdit, textEdit)
+		updatePost(titleEdit, bodyEdit)
 		setTitleEdit('')
-		setTextEdit('')
+		setBodyEdit('')
 	}
 
 	return (
@@ -89,8 +87,8 @@ const UpdatePostForm = () => {
 								multiline
 								minRows = {10}
 								placeholder='type your post here...'
-								value={textEdit}
-								onChange={(e) => setTextEdit(e.target.value)}
+								value={bodyEdit}
+								onChange={(e) => setBodyEdit(e.target.value)}
 							/>
 							<Box textAlign = 'center'>
 								<Button variant='contained' type='submit'>Update Post</Button>

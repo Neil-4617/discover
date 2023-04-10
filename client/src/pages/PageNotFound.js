@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import SvgIcon from '@mui/material/SvgIcon'
 import ReportIcon from '@mui/icons-material/Report';
 
-import imgfile from '../components/assets/404.png'
+import imgfile from '../assets/404.png'
 
 
 const PageNotFound = () => {

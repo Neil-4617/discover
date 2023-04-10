@@ -11,7 +11,7 @@ import Post from './pages/posts/Post'
 import Register from './pages/register/Register' 
 import LoginPage from './pages/login/LoginPage' 
 import PageNotFound from './pages/PageNotFound' 
-import Layout from './components/Layout'
+import Layout from './layout/Layout'
 import RequireAuth from './components/RequireAuth'
 import UpdatePostForm from './pages/posts/UpdatePostForm'
 

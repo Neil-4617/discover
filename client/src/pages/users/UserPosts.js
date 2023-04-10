@@ -7,9 +7,10 @@ import Button from '@mui/material/Button'
 
 import { Link } from 'react-router-dom'
 
-import { getFullname, dateFormat, titleCase } from '../../components/util/util'
+import { getFullname, dateFormat, titleCase } from '../../util/util'
 
 const UserPosts = ({userPost}) => {
+	
 	return (
 		<Card 
 				sx={{
@@ -32,7 +33,7 @@ const UserPosts = ({userPost}) => {
 						}}
 						>{dateFormat(userPost.updatedAt)}</Typography>
 					<Typography variant='body2' color='text.secondary' my='3px' noWrap>
-						{userPost.text}
+						{userPost.body}
 					</Typography>
 					<Link to= {'/post/'+ userPost.id}>
 						<Button size='small'>

@@ -47,7 +47,8 @@ const Homepage = () => {
 		// 	</Box>
 		// </>
 	return (
-		<Posts/>
+		<Posts />
+		
 	)
 } 
 

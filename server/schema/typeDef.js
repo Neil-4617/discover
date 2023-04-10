@@ -33,7 +33,7 @@ export const PostType = new GraphQLObjectType({
 	fields: () => ({
 		id: {type: GraphQLNonNull(GraphQLID)},
 		title: {type: GraphQLNonNull(GraphQLString)},
-		text: {type: GraphQLNonNull(GraphQLString)},
+		body: {type: GraphQLNonNull(GraphQLString)},
 		createdAt: {type: GraphqlDateTimeCustom},
 		updatedAt: {type: GraphqlDateTimeCustom},
 		user: {

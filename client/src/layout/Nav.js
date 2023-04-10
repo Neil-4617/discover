@@ -10,7 +10,7 @@ import Button from '@mui/material/Button'
 
 import AccountMenu from './AccountMenu'
 
-import DataContext from './context/DataContext'
+import DataContext from '../components/context/DataContext'
 
 const Nav = () => {
 	const {currentUser, sign, setSign} = useContext(DataContext)

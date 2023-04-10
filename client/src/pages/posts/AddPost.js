@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-const AddPost = ({handleAddPost, title, setTitle, text, setText}) => {
+const AddPost = ({handleAddPost, title, setTitle, body, setBody}) => {
 
 
 	return (
@@ -44,8 +44,8 @@ const AddPost = ({handleAddPost, title, setTitle, text, setText}) => {
 								multiline
 								minRows = {10}
 								placeholder='type your post here...'
-								value={text}
-								onChange={(e) => setText(e.target.value)}
+								value={body}
+								onChange={(e) => setBody(e.target.value)}
 							/>
 							<Box textAlign = 'center'>
 								<Button variant='contained' type='submit'>Add Post</Button>

@@ -115,13 +115,13 @@ export const Mutation = new GraphQLObjectType({
 			description: 'Authorized user can create post',
 			args: { 
 				title: { type: new GraphQLNonNull(GraphQLString) }, 
-				text: { type: new GraphQLNonNull(GraphQLString) },  
+				body: { type: new GraphQLNonNull(GraphQLString) },  
 				authorId: { type: new GraphQLNonNull(GraphQLID) } 
 				},
 			resolve(_, args) {
 				const post = new Post({
 					title: args.title,
-					text: args.text,
+					body: args.body,
 					authorId: args.authorId
 				})
 				return post.save()
@@ -145,14 +145,13 @@ export const Mutation = new GraphQLObjectType({
 			args: {
 				id: { type: new GraphQLNonNull(GraphQLID) },
 				title: { type: new GraphQLNonNull(GraphQLString) },
-				text: { type: new GraphQLNonNull(GraphQLString) }
+				body: { type: new GraphQLNonNull(GraphQLString) }
 			},
-			resolve(_, args) {
-				const postId = {id : args._id}
-				const postDetails = { title: args.title, text: args.text, updatedAt: new Date().toISOString()}
-				console.log(postId, postDetails)
+			resolve(_, {id,title,body}) {
+				// const postId = {id : args.id}
+				const postDetails = { title, body}
 
-				return Post.findOneAndUpdate(postId, postDetails)
+				return Post.findOneAndUpdate(id, postDetails)
 			}
 		},
 	}

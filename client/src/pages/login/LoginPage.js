@@ -1,3 +1,4 @@
+// Material UI
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -15,6 +16,8 @@ import DataContext from '../../components/context/DataContext'
 
 const LoginPage = () => {
 	const { 
+		auth,
+		currentUser,
 		values,
 		handleChange,
 		handleClickShowPassword,
@@ -35,7 +38,7 @@ const LoginPage = () => {
 					gap: 1
 				}}
 				onSubmit={(e) =>login(e)}
-			>
+				>
 				<Typography variant='h6'>Sign in</Typography>
 				<FormControl sx = {{ m: 1, width: '16rem' }} variant = 'outlined'>
 					<InputLabel htmlFor = 'outlined-adornment-email'>Email</InputLabel>

@@ -77,9 +77,6 @@ export const DataProvider = ({children}) => {
 
 	const login = (e) => {
 		e.preventDefault()
-		if(values.email === '' || values.password === ''){
-			return alert('Please fill all fields')
-		}
 		loginUser({
 			variables: {
 				email: values.email, 

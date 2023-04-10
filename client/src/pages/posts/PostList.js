@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-import { getFullname, dateFormat, titleCase } from '../../components/util/util'
+import { getFullname, dateFormat, titleCase } from '../../util/util'
  
 const PostList = ({post}) => {
 
@@ -30,7 +30,7 @@ const PostList = ({post}) => {
 					}}
 					>{dateFormat(post.updatedAt)}</Typography>
 				<Typography variant='body2' color='text.secondary' my='3px' noWrap>
-					{post.text}
+					{post.body}
 				</Typography>
 				<Link to= {'/post/'+ post.id}>
 					<Button size='small'>

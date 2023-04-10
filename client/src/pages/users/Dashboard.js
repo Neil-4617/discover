@@ -19,10 +19,11 @@ const Dashboard = () => {
 	const [addPost] = useMutation(ADD_POST)
 	
 	const {data} = useQuery(GET_ALL_POST_BY_USER)
+	const {postData} = useQuery(GET_ALL_POST)
 
 	const [isOpen, setIsOpen] = useState(false)
 	const [title, setTitle] = useState('')
-	const [text, setText] = useState('')
+	const [body, setBody] = useState('')
 
 	const user = localStorage.getItem('user') || null
 	const userId = localStorage.getItem('userId')
@@ -43,7 +44,7 @@ const Dashboard = () => {
 			addPost({
 				variables: {
 					title: title,
-					text: text,
+					body: body,
 					authorId: userId
 				},
 				refetchQueries: [{query: GET_ALL_POST}],
@@ -52,8 +53,8 @@ const Dashboard = () => {
 
 				if(post){
 					alert('Add Post Successful')
-					setText('')
 					setTitle('')
+					setBody('')
 					setIsOpen(!isOpen)
 				}
 				else{
@@ -71,7 +72,7 @@ const Dashboard = () => {
 				<Typography>{user}'s Dashboard</Typography>
 				
 				<Button onClick={() => setIsOpen(!isOpen)}>{addPostButtonLabel}</Button>
-				{isOpen ? <AddPost handleAddPost={handleAddPost} title={title} setTitle={setTitle} text={text} setText={setText}/>: null}
+				{isOpen ? <AddPost handleAddPost={handleAddPost} title={title} setTitle={setTitle} body={body} setBody={setBody}/>: null}
 				<Box
 					sx={{
 						display: 'flex',

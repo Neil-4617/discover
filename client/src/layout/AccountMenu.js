@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
-import DataContext from './context/DataContext'
+import DataContext from '../components/context/DataContext'
 
 const AccountMenu = () => {
 

@@ -19,7 +19,7 @@ const app = express()
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.once('open', ()=>{
-	console.log("Now connected to Local MongoDB Server")
+	console.log("Now connected to MongoDB Server")
 })
 
 

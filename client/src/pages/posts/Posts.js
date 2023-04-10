@@ -1,13 +1,11 @@
 import { useQuery } from '@apollo/client'
 
-import Box from '@mui/material/Box'
-
 // get users query
 import { GET_ALL_POST } from '../../graphql/queries.js'
 
 import PostList from './PostList'
-import ErrorLoading from '../../components/util/ErrorLoading'
-import LoadingData from '../../components/util/LoadingData'
+import ErrorLoading from '../../util/ErrorLoading'
+import LoadingData from '../../util/LoadingData'
 
 
 const Posts = () => {

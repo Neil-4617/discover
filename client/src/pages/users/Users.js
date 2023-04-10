@@ -5,8 +5,8 @@ import Box from '@mui/material/Box'
 // get users query
 import { GET_USERS } from '../../graphql/queries.js'
 
-import ErrorLoading from '../../components/util/ErrorLoading'
-import LoadingData from '../../components/util/LoadingData'
+import ErrorLoading from '../../util/ErrorLoading'
+import LoadingData from '../../util/LoadingData'
 import UsersList from './UsersList'
 
 const Users = () => {

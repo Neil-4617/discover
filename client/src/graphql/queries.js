@@ -34,7 +34,7 @@ export const GET_ALL_POST = gql`
 		posts{
 			id
 			title
-			text
+			body
 			createdAt
 			updatedAt
 			user{
@@ -51,7 +51,7 @@ export const GET_ALL_POST_BY_USER = gql`
 		userPosts{
 			id
 			title
-			text
+			body
 			createdAt
 			updatedAt
 			user{
@@ -71,7 +71,7 @@ export const GET_POST = gql`
 		post(id: $id){
 			id
 			title
-			text
+			body
 			createdAt
 			updatedAt
 			user{
